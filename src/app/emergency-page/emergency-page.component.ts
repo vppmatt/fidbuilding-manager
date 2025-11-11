@@ -15,8 +15,10 @@ export class EmergencyPageComponent implements OnInit {
   private restService = inject(RestService);
   private router = inject(Router);
 
-  buildings : WritableSignal<Building[]> = signal<Building[]>([]);
+  errorMessage = "";
 
+  buildings : WritableSignal<Building[]> = signal<Building[]>([]);
+  
   handleChange(event: any) {
     const building = event.target.value;
     this.router.navigate(['emergency', building]);
@@ -24,6 +26,7 @@ export class EmergencyPageComponent implements OnInit {
 
   ngOnInit(): void {
       const obs = this.restService.getBuildings();
-      obs.subscribe(data => this.buildings.set(data));
+      obs.subscribe({next :data => this.buildings.set(data),
+      error: err => this.errorMessage = err.message});
   }
 }

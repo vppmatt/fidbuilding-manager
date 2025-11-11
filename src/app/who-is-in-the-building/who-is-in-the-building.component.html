@@ -1,5 +1,15 @@
-<h2>People in {{ selectedBuilding }} right now</h2>
+@if(selectedBuilding) {
+  <h2>People in {{ selectedBuilding }} right now</h2>
+}
+@if(isLoading) {
+  <app-spinner></app-spinner>
+}
 
+@if(errorMessage) {
+  <p style="color: red">{{errorMessage}}</p>
+}
+
+@if(!isLoading && !errorMessage && selectedBuilding) {
 <table>
   <thead>
     <tr>
@@ -16,3 +26,4 @@
     }
   </tbody>
 </table>  
+}
