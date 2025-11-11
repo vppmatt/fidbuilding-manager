@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RestService } from '../rest.service';
 import { AccessRecord } from '../model/AccessRecord';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-who-is-in-the-building',
@@ -11,11 +12,20 @@ import { AccessRecord } from '../model/AccessRecord';
 export class WhoIsInTheBuildingComponent implements OnInit {
 
   private restService = inject(RestService);
+  private activatedRoute = inject(ActivatedRoute);
 
   accessLogs = signal<AccessRecord[]>([]);
-  selectedBuilding = "Adel Square";
+  selectedBuilding = "";
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe(params => {
+      this.selectedBuilding = params['building'] || "";
+      if (this.selectedBuilding !== "") this.getData();
+
+    });
+  }
+
+  getData() {
     this.restService.getAccessLogs(new Date()).subscribe(data => {
       console.log(data);
       const buildingRecords = data.filter(record => record.building.name === this.selectedBuilding);
