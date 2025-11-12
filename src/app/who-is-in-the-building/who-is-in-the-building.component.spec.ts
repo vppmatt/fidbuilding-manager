@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WhoIsInTheBuildingComponent } from './who-is-in-the-building.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 
 describe('WhoIsInTheBuildingComponent', () => {
   let component: WhoIsInTheBuildingComponent;
@@ -8,7 +10,8 @@ describe('WhoIsInTheBuildingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WhoIsInTheBuildingComponent]
+      imports: [WhoIsInTheBuildingComponent],
+      providers: [provideHttpClient(), provideRouter([])]
     })
     .compileComponents();
 

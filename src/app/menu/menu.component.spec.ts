@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuComponent } from './menu.component';
+import { provideRouter } from '@angular/router';
 
 describe('MenuComponent', () => {
   let component: MenuComponent;
@@ -8,7 +9,8 @@ describe('MenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MenuComponent]
+      imports: [MenuComponent],
+      providers: [provideRouter([])]
     })
     .compileComponents();
 
@@ -19,5 +21,10 @@ describe('MenuComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('all links should appear', () => {
+    const anchorElements = fixture.nativeElement.querySelectorAll('a');
+    expect(anchorElements.length).toBe(4);
   });
 });
