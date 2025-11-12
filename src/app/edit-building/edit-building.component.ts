@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { RestService } from '../rest.service';
 import { Building } from '../model/Building';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-building',
@@ -22,10 +22,18 @@ export class EditBuildingComponent {
     })
   }
 
-  editForm = new FormGroup({
-    id: new FormControl('id'),
-    name: new FormControl('name'),
+  formBuilder = inject(FormBuilder);
+
+  editForm = this.formBuilder.group({
+    id : [''],
+    name: ['', [Validators.minLength(3), Validators.required]]
   })
+  
+
+  // editForm = new FormGroup({
+  //   id: new FormControl('id'),
+  //   name: new FormControl('name'),
+  // })
 
   private restService = inject(RestService);
 
@@ -35,7 +43,7 @@ export class EditBuildingComponent {
     });
   }
 
-  onSubmit() {
+  onSubmit() { 
     console.log("Submitting form", this.editForm.value);
   }
 }

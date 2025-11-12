@@ -16,8 +16,11 @@
         Name:
         <input id="name" name="name" formControlName="name"/>
     </label>
+    @if(editForm.controls.name.invalid) {
+        <p>This must be completed and at least 3 characters</p>
+    }
     
-    <button type="submit">Save Changes</button>
+    <button type="submit" [disabled]="editForm.invalid" >Save Changes</button>
 
 </form>
 }
