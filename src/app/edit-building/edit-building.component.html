@@ -1,0 +1,23 @@
+<h2>Select the building to edit</h2>
+<ul>
+    @for(building of buildings(); track $index) {
+    <li>
+        {{ building.name }} <button (click)="handleClick(building.id)"  >edit</button>
+    </li>
+    }
+</ul>
+
+@if(selectedBuildingId) {
+<form [formGroup]="editForm" (submit)="onSubmit()">
+    
+    <input type="hidden" id="id" name="id" formControlName="id"/>
+
+    <label>
+        Name:
+        <input id="name" name="name" formControlName="name"/>
+    </label>
+    
+    <button type="submit">Save Changes</button>
+
+</form>
+}
