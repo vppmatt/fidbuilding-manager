@@ -22,4 +22,12 @@ export class RestService {
     const formattedDate = date.toISOString().split('T')[0]; // Format date as yyyy-MM-dd
     return this.httpClient.get<AccessRecord[]>(`${this.serverUrl}/api/logs/${formattedDate}?all=true`);
   }
+
+  addUser(user: {firstname: string, surname: string}) : Observable<{id: number, firstname: string, surname: string}> {
+    return this.httpClient.post<{id: number, firstname: string, surname: string}>(`${this.serverUrl}/api/user`, user);
+  }
+
+  editBuilding(building : Building) : Observable<Building> {
+    return this.httpClient.put<Building>(`${this.serverUrl}/api/building/${building.id}`, building);
+  }
 }

@@ -8,5 +8,12 @@
     <label for="surname">Surname:</label>
     <input id="surname" name="surname" type="text" [(ngModel)]="surname" required />
 
-    <button type="submit">Add User</button> 
+    <button type="submit" [disabled]="saving">Add User</button> 
 </form>
+
+@if(saving){
+    <app-spinner></app-spinner>
+}
+@if(message){
+    <p>{{message}}</p>
+}

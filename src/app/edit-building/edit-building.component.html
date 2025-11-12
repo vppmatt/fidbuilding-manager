@@ -23,4 +23,7 @@
     <button type="submit" [disabled]="editForm.invalid" >Save Changes</button>
 
 </form>
+@if(saving) {
+    <app-spinner></app-spinner>
+}
 }
